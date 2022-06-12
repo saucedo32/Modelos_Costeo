@@ -9,7 +9,7 @@ import funciones
 ###### Procedimientos que se emplean en CONSUMOS: ####
 ######################################################
 
-def apertura_pmo(dfc):
+def apertura_pmo(dfc, ruta_aux):
 
     # CREAMOS LA COLUMNA: "Marca PMO"
     # Levanto el excel con marca de prestaciones pmo
@@ -26,7 +26,7 @@ def apertura_pmo(dfc):
     # Reemplazamos los nan de marca pmo por "NO PMO"
     dfc['Marca PMO'] = dfc['Marca PMO'].replace(np.nan,"NO PMO")
 
-def apertura_tipo_internacion(df):
+def apertura_tipo_internacion(dfc, ruta_int):
     
     ########################################################
     ###### AGREGAMOS MARCA TIPO INTERNACION
@@ -418,7 +418,7 @@ def marca_parentesco(df):
 ########################################################
 
 # Ruta donde se encuentran los seteos:
-ruta_seteos = txt_seteos
+#ruta_seteos = txt_seteos
 
 
 
