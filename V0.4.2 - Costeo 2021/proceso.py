@@ -21,8 +21,8 @@ def apertura_pmo(dfc, ruta_aux):
                 right_on='Prest sin espacios', how = "left")
     dfpmo = [] # Libero memoria:
     # Prestaciones detectadas como faltantes:
-    print('Las prestaciones que no se pudieron catalogar fueron:')
-    print(dfc[dfc['Marca PMO'].isna()]["Prestacion"].unique())
+    #print('Las prestaciones que no se pudieron catalogar fueron:')
+    #print(dfc[dfc['Marca PMO'].isna()]["Prestacion"].unique())
     # Reemplazamos los nan de marca pmo por "NO PMO"
     dfc['Marca PMO'] = dfc['Marca PMO'].replace(np.nan,"NO PMO")
 
@@ -52,7 +52,7 @@ def apertura_tipo_internacion(dfc, ruta_int):
     # Generación de la columna calculada
     dfc['Tipo Int. ID'] = np.select(condiciones_dfint, valores_dfint, default = 'No Considerar')
 
-def apertura_total(df):
+def apertura_total(dfc):
 
     ########################################################
     ###### CREAMOS LA COLUMNA APERTURA TOTAL
@@ -71,7 +71,7 @@ def apertura_total(df):
     # Generación de la columna calculada
     dfc['Apertura Total'] = np.select(condiciones2, valores_condic2, default = 'Ambulatorio sin A,C,Med')
 
-def apertura_rubros_amb(df):
+def apertura_rubros_amb(dfc):
 
     ########################################################
     ###### CREAMOS LA COLUMNA: APERTURA AMB POR RUBRO
@@ -127,7 +127,7 @@ def apertura_rubros_amb(df):
     # Generación de la columna calculada
     dfc['Amb por Rubros'] = np.select(condiciones3, valores_condic3, default = 'No Considerar')
 
-def apertura_origen_medicamentos(df):
+def apertura_origen_medicamentos(dfc):
 
     ############################################################
     ###### AGREGAMOS COLUMNA MEDICAMENTOS POR ORIGEN PRESTACION
@@ -149,7 +149,7 @@ def apertura_origen_medicamentos(df):
     # Generación de la columna calculada
     dfc['Medicamentos por Origen'] = np.select(condiciones4, valores_condic4, default = 'No Considerar')
 
-def apertura_via_medicamentos(df):
+def apertura_via_medicamentos(dfc):
 
     ########################################################
     ###### AGREGAMOS MARCA MEDICAMENTOS POR VIA
@@ -174,7 +174,7 @@ def apertura_via_medicamentos(df):
     # Generación de la columna calculada
     dfc['Medicamentos por Via'] = np.select(condiciones5, valores_condic5, default = 'No Considerar')
 
-def apertura_cobertura_medicamentos(df):
+def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medicamentos):
     ########################################################
     ###### AGREGAMOS COLUMNA MEDICAMENTOS POR COBERTURA
     ########################################################
@@ -200,6 +200,7 @@ def apertura_cobertura_medicamentos(df):
 
     # Redondeo a 0 y multiplico por 10 para quedarme con la decena
     dfc['Cob_prec_sug'] = round(dfc['Cob_prec_sug'],0)*10
+
 
 
     # Coberturas
@@ -266,6 +267,8 @@ def apertura_cobertura_medicamentos(df):
 
     # Generación de la columna calculada
     dfc['Marca_Cobertura_100'] = np.select(condiciones, valores_condic, default = 'No Cobertura 100%')
+
+
 
     # Genero la agrupación final med
     condiciones = [
