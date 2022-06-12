@@ -1,12 +1,16 @@
+# Librerías usadas:
+import pandas as pd
+import numpy as np
+import os
+from datetime import datetime
+import funciones
 
 
 ###### Procedimientos que se emplean en CONSUMOS:
 
-def apertura_pmo(df):
+def apertura_pmo(dfc):
 
-    ########################################################
-    ###### CREAR MARCA PMO
-    ########################################################
+    import pandas as pd
 
     # CREAMOS LA COLUMNA: "Marca PMO"
     # Levanto el excel con marca de prestaciones pmo
@@ -323,7 +327,6 @@ def marca_cartilla_base(df):
     Aux_CartillaBase = []
 
 
-
 def marca_cobertura_med(df):
 
     ########################################################
@@ -340,7 +343,6 @@ def marca_cobertura_med(df):
     Aux_CobertMedicamentosPlan = []
 
 
-
 def marca_lista_copagos(df):
 
     ########################################################
@@ -355,7 +357,6 @@ def marca_lista_copagos(df):
 
     # Elimino Aux_CartillaBase de memoria
     Aux_ListaCopagos = []
-
 
 
 def marca_diagnistico(df):
@@ -401,7 +402,6 @@ def marca_diagnistico(df):
     # Reemplazo valores de filas con replace:
     dfs['Sexo'] = dfs['Sexo'].replace(['M', 'F'], [1, 0])
     dfs['Discapacidad'] = dfs['Discapacidad'].replace(['N', 'S'], [0, 1])
-
 
 
 def marca_parentesco(df):
