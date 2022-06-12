@@ -50,7 +50,7 @@ def generar_reporte(txt_seteos):
 
 
     ########################################################
-    ###### AGREGAMOS MARCA PRESTACIONES PMO
+    ###### MARCA PMO
     ########################################################
 
     # CREAMOS LA COLUMNA: "Marca PMO"
@@ -179,9 +179,9 @@ def generar_reporte(txt_seteos):
 
     print("agregamos la columna amb por rubro")
 
-    ########################################################
+    ############################################################
     ###### AGREGAMOS COLUMNA MEDICAMENTOS POR ORIGEN PRESTACION
-    ########################################################
+    ############################################################
 
     # Apertura para consumo: Medicamentos por Origen
 
