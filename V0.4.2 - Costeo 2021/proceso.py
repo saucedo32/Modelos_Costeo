@@ -26,6 +26,10 @@ def apertura_pmo(dfc, ruta_aux):
     # Reemplazamos los nan de marca pmo por "NO PMO"
     dfc['Marca PMO'] = dfc['Marca PMO'].replace(np.nan,"NO PMO")
 
+    return dfc
+
+
+
 def apertura_tipo_internacion(dfc, ruta_int):
     
     ########################################################
@@ -51,6 +55,9 @@ def apertura_tipo_internacion(dfc, ruta_int):
     valores_dfint = [dfc['Tipo Int. ID']]   
     # Generación de la columna calculada
     dfc['Tipo Int. ID'] = np.select(condiciones_dfint, valores_dfint, default = 'No Considerar')
+
+    return dfc
+
 
 def apertura_total(dfc):
 
@@ -287,12 +294,14 @@ def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medi
     # Generación de la columna calculada
     dfc['Medicamentos por Cobertura'] = np.select(condiciones, valores_condic, default = 'No Considerar')
 
+    return dfc
+
 
 ######################################################
 ###### Procedimientos que se emplean en ASOCIADOS: ###
 ######################################################
 
-def marca_rango_edad(df):
+def marca_rango_edad(dfs, ruta_aux):
 
     ########################################################
     ###### AGREGAMOS RANGO EDAD
@@ -307,7 +316,10 @@ def marca_rango_edad(df):
     # Elimino Aux_RangoEdad de memoria
     Aux_RangoEdad = []
 
-def marca_cartilla_base(df):
+    return dfs
+
+
+def marca_cartilla_base(dfs, ruta_aux):
 
     ########################################################
     ###### AGREGAMOS CARTILLA BASE
@@ -322,7 +334,10 @@ def marca_cartilla_base(df):
     # Elimino Aux_CartillaBase de memoria
     Aux_CartillaBase = []
 
-def marca_cobertura_med(df):
+    return dfs
+
+
+def marca_cobertura_med(dfs, ruta_aux):
 
     ########################################################
     ###### AGREGAMOS COBERTURA MED DEL PLAN
@@ -337,7 +352,10 @@ def marca_cobertura_med(df):
     # Elimino Aux_CartillaBase de memoria
     Aux_CobertMedicamentosPlan = []
 
-def marca_lista_copagos(df):
+    return dfs
+
+
+def marca_lista_copagos(dfs, ruta_aux):
 
     ########################################################
     ###### AGREGAMOS LISTA COPAGOS DEL PLAN
@@ -352,7 +370,10 @@ def marca_lista_copagos(df):
     # Elimino Aux_CartillaBase de memoria
     Aux_ListaCopagos = []
 
-def marca_diagnistico(df):
+    return dfs
+
+
+def marca_diagnistico(dfs, ruta_diag):
 
     ########################################################
     ###### AGREGAMOS DIAGNOSTICOS DE LAS PERSONAS
@@ -396,7 +417,10 @@ def marca_diagnistico(df):
     dfs['Sexo'] = dfs['Sexo'].replace(['M', 'F'], [1, 0])
     dfs['Discapacidad'] = dfs['Discapacidad'].replace(['N', 'S'], [0, 1])
 
-def marca_parentesco(df):
+    return dfs
+
+
+def marca_parentesco(dfs):
 
     # Agregamos los parentescos de los hijos:
     # Método np.select()
@@ -413,6 +437,8 @@ def marca_parentesco(df):
 
     # Generación de la columna calculada
     dfs['Marca Hijo'] = np.select(condiciones, valores_condic, default=0) # se analizaron y surgen de consumo 3 == 0
+
+    return dfs
 
 
 
