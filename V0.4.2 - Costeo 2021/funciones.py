@@ -86,5 +86,22 @@ def td_consumo(df, columna, segmentacion, metricas):
 
 
 
+def apertura_pmo(dfc):
 
+    #dfc = dfc
+
+    # CREAMOS LA COLUMNA: "Marca PMO"
+    # Levanto el excel con marca de prestaciones pmo
+    dfpmo = pd.read_excel(ruta_aux + 'Aux_pmo.xlsx')
+    # Quito los espacios a las prestaciones:
+    dfc["Prest_sin_esp"] = dfc.Prestacion.str.strip()
+    # Unimos la marca al dfc
+    dfc = pd.merge( left = dfc, right = dfpmo, left_on='Prest_sin_esp', 
+                right_on='Prest sin espacios', how = "left")
+    dfpmo = [] # Libero memoria:
+    # Prestaciones detectadas como faltantes:
+    print('Las prestaciones que no se pudieron catalogar fueron:')
+    print(dfc[dfc['Marca PMO'].isna()]["Prestacion"].unique())
+    # Reemplazamos los nan de marca pmo por "NO PMO"
+    dfc['Marca PMO'] = dfc['Marca PMO'].replace(np.nan,"NO PMO")
 

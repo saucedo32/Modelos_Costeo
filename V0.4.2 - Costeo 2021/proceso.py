@@ -5,12 +5,11 @@ import os
 from datetime import datetime
 import funciones
 
-
-###### Procedimientos que se emplean en CONSUMOS:
+######################################################
+###### Procedimientos que se emplean en CONSUMOS: ####
+######################################################
 
 def apertura_pmo(dfc):
-
-    import pandas as pd
 
     # CREAMOS LA COLUMNA: "Marca PMO"
     # Levanto el excel con marca de prestaciones pmo
@@ -26,7 +25,6 @@ def apertura_pmo(dfc):
     print(dfc[dfc['Marca PMO'].isna()]["Prestacion"].unique())
     # Reemplazamos los nan de marca pmo por "NO PMO"
     dfc['Marca PMO'] = dfc['Marca PMO'].replace(np.nan,"NO PMO")
-
 
 def apertura_tipo_internacion(df):
     
@@ -54,7 +52,6 @@ def apertura_tipo_internacion(df):
     # Generación de la columna calculada
     dfc['Tipo Int. ID'] = np.select(condiciones_dfint, valores_dfint, default = 'No Considerar')
 
-
 def apertura_total(df):
 
     ########################################################
@@ -73,7 +70,6 @@ def apertura_total(df):
 
     # Generación de la columna calculada
     dfc['Apertura Total'] = np.select(condiciones2, valores_condic2, default = 'Ambulatorio sin A,C,Med')
-
 
 def apertura_rubros_amb(df):
 
@@ -131,7 +127,6 @@ def apertura_rubros_amb(df):
     # Generación de la columna calculada
     dfc['Amb por Rubros'] = np.select(condiciones3, valores_condic3, default = 'No Considerar')
 
-
 def apertura_origen_medicamentos(df):
 
     ############################################################
@@ -153,7 +148,6 @@ def apertura_origen_medicamentos(df):
     valores_condic4 = ['Med. Int', 'Med. Int', 'Med. Amb', 'Med. Amb']     
     # Generación de la columna calculada
     dfc['Medicamentos por Origen'] = np.select(condiciones4, valores_condic4, default = 'No Considerar')
-
 
 def apertura_via_medicamentos(df):
 
@@ -179,7 +173,6 @@ def apertura_via_medicamentos(df):
 
     # Generación de la columna calculada
     dfc['Medicamentos por Via'] = np.select(condiciones5, valores_condic5, default = 'No Considerar')
-
 
 def apertura_cobertura_medicamentos(df):
     ########################################################
@@ -292,8 +285,9 @@ def apertura_cobertura_medicamentos(df):
     dfc['Medicamentos por Cobertura'] = np.select(condiciones, valores_condic, default = 'No Considerar')
 
 
-
-###### Procedimientos que se emplean en ASOCIADOS:
+######################################################
+###### Procedimientos que se emplean en ASOCIADOS: ###
+######################################################
 
 def marca_rango_edad(df):
 
@@ -310,7 +304,6 @@ def marca_rango_edad(df):
     # Elimino Aux_RangoEdad de memoria
     Aux_RangoEdad = []
 
-
 def marca_cartilla_base(df):
 
     ########################################################
@@ -325,7 +318,6 @@ def marca_cartilla_base(df):
 
     # Elimino Aux_CartillaBase de memoria
     Aux_CartillaBase = []
-
 
 def marca_cobertura_med(df):
 
@@ -342,7 +334,6 @@ def marca_cobertura_med(df):
     # Elimino Aux_CartillaBase de memoria
     Aux_CobertMedicamentosPlan = []
 
-
 def marca_lista_copagos(df):
 
     ########################################################
@@ -357,7 +348,6 @@ def marca_lista_copagos(df):
 
     # Elimino Aux_CartillaBase de memoria
     Aux_ListaCopagos = []
-
 
 def marca_diagnistico(df):
 
@@ -403,7 +393,6 @@ def marca_diagnistico(df):
     dfs['Sexo'] = dfs['Sexo'].replace(['M', 'F'], [1, 0])
     dfs['Discapacidad'] = dfs['Discapacidad'].replace(['N', 'S'], [0, 1])
 
-
 def marca_parentesco(df):
 
     # Agregamos los parentescos de los hijos:
@@ -424,8 +413,12 @@ def marca_parentesco(df):
 
 
 
+########################################################
+###### LECTURA DE VARIABLES CON SETEOS: 
+########################################################
 
-
+# Ruta donde se encuentran los seteos:
+ruta_seteos = txt_seteos
 
 
 
