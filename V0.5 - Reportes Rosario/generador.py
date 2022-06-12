@@ -9,7 +9,7 @@ def generar_reporte(txt_seteos):
     from datetime import datetime
     import funciones
 
-    print("inicio del proceso")
+    # print("inicio del proceso")
 
     ########################################################
     ###### LECTURA DE VARIABLES CON SETEOS: 
@@ -62,12 +62,12 @@ def generar_reporte(txt_seteos):
     # Libero memoria:
     dfpmo = []
     # Prestaciones detectadas como faltantes:
-    print('Las prestaciones que no se pudieron catalogar fueron:')
-    print(dfc[dfc['Marca PMO'].isna()]["Prestacion"].unique())
+    #print('Las prestaciones que no se pudieron catalogar fueron:')
+    #print(dfc[dfc['Marca PMO'].isna()]["Prestacion"].unique())
     # Reemplazamos los nan de marca pmo por "NO PMO"
     dfc['Marca PMO'] = dfc['Marca PMO'].replace(np.nan,"NO PMO")
 
-    print("agregamos la marca de prestaciones PMO")
+    #print("agregamos la marca de prestaciones PMO")
 
 
     ########################################################
@@ -95,7 +95,7 @@ def generar_reporte(txt_seteos):
     dfc['Tipo Int. ID'] = np.select(condiciones_dfint, valores_dfint, default = 'No Considerar')
 
 
-    print("agregamos la marca de tipo internacion")
+    #print("agregamos la marca de tipo internacion")
 
 
 
@@ -116,7 +116,7 @@ def generar_reporte(txt_seteos):
     dfc['Apertura Total'] = np.select(condiciones2, valores_condic2, default = 'Ambulatorio sin A,C,Med')
 
 
-    print("agregamos la columna apertura total")
+    #print("agregamos la columna apertura total")
 
 
     ########################################################
@@ -174,7 +174,7 @@ def generar_reporte(txt_seteos):
     dfc['Amb por Rubros'] = np.select(condiciones3, valores_condic3, default = 'No Considerar')
 
 
-    print("agregamos la columna amb por rubro")
+    #print("agregamos la columna amb por rubro")
 
     ########################################################
     ###### AGREGAMOS COLUMNA MEDICAMENTOS POR ORIGEN PRESTACION
@@ -199,7 +199,7 @@ def generar_reporte(txt_seteos):
     dfc['Medicamentos por Origen'] = np.select(condiciones4, valores_condic4, default = 'No Considerar')
 
 
-    print("agregamos la columna medicamentos por origen")
+    #print("agregamos la columna medicamentos por origen")
 
 
     ########################################################
@@ -226,7 +226,7 @@ def generar_reporte(txt_seteos):
     dfc['Medicamentos por Via'] = np.select(condiciones5, valores_condic5, default = 'No Considerar')
 
 
-    print("agregamos la columna medicamentos por via")
+    #print("agregamos la columna medicamentos por via")
 
     ########################################################
     ###### AGREGAMOS COLUMNA MEDICAMENTOS POR COBERTURA
@@ -343,7 +343,7 @@ def generar_reporte(txt_seteos):
 
 
 
-    print("Medicamentos por Cobertura")
+    #print("Medicamentos por Cobertura")
 
 
     ########################################################
@@ -385,28 +385,28 @@ def generar_reporte(txt_seteos):
     td1.columns = col_td1
 
     td2 = funciones.td_consumo(df = dfc, columna = "Apertura Total", segmentacion = segmentacion, metricas = metricas)
-    print("fin td2 -- " + datetime.now().strftime('%H:%M:%S'))
+    #print("fin td2 -- " + datetime.now().strftime('%H:%M:%S'))
 
     td3 = funciones.td_consumo(df = dfc, columna = "Amb por Rubros", segmentacion = segmentacion, metricas = metricas)
-    print("fin td3 -- " + datetime.now().strftime('%H:%M:%S'))
+    #print("fin td3 -- " + datetime.now().strftime('%H:%M:%S'))
 
     td4 = funciones.td_consumo(df = dfc, columna = "Medicamentos por Origen", segmentacion = segmentacion, metricas = metricas)
-    print("fin td4 -- " + datetime.now().strftime('%H:%M:%S'))
+    #print("fin td4 -- " + datetime.now().strftime('%H:%M:%S'))
 
     td5= funciones.td_consumo(df = dfc, columna = "Medicamentos por Via", segmentacion = segmentacion, metricas = metricas)
-    print("fin td5 -- " + datetime.now().strftime('%H:%M:%S'))
+    #print("fin td5 -- " + datetime.now().strftime('%H:%M:%S'))
 
     td6 = funciones.td_consumo(df = dfc, columna = "Medicamentos por Cobertura", segmentacion = segmentacion, metricas = metricas)
-    print("fin td6 -- " + datetime.now().strftime('%H:%M:%S'))
+    #print("fin td6 -- " + datetime.now().strftime('%H:%M:%S'))
 
     td7 = funciones.td_consumo(df = dfc, columna = "Tipo Int. ID", segmentacion = segmentacion, metricas = metricas)
-    print("fin td7 -- " + datetime.now().strftime('%H:%M:%S'))
+    #print("fin td7 -- " + datetime.now().strftime('%H:%M:%S'))
 
     td8 = funciones.td_consumo(df = dfc, columna = "Marca PMO", segmentacion = segmentacion, metricas = metricas)
-    print("fin td8 -- " + datetime.now().strftime('%H:%M:%S'))
+    #print("fin td8 -- " + datetime.now().strftime('%H:%M:%S'))
 
 
-    print("armamos las td resumidas del consumo")
+    #print("armamos las td resumidas del consumo")
 
 
     ########################################################
@@ -427,7 +427,7 @@ def generar_reporte(txt_seteos):
     funciones.renombrar_columnas(dfs)
 
 
-    print("leimos el stock")
+    #print("leimos el stock")
 
 
     ########################################################
@@ -443,7 +443,7 @@ def generar_reporte(txt_seteos):
     # Elimino Aux_RangoEdad de memoria
     Aux_RangoEdad = []
 
-    print("pegamos la edad")
+    #print("pegamos la edad")
 
     ########################################################
     ###### AGREGAMOS CARTILLA BASE
@@ -458,7 +458,7 @@ def generar_reporte(txt_seteos):
     # Elimino Aux_CartillaBase de memoria
     Aux_CartillaBase = []
 
-    print("pegamos la cartilla base")
+    #print("pegamos la cartilla base")
 
 
     ########################################################
@@ -474,7 +474,7 @@ def generar_reporte(txt_seteos):
     # Elimino Aux_CartillaBase de memoria
     Aux_CobertMedicamentosPlan = []
 
-    print("pegamos la cobertura med del plan")
+    #print("pegamos la cobertura med del plan")
 
     ########################################################
     ###### AGREGAMOS LISTA COPAGOS DEL PLAN
@@ -489,7 +489,7 @@ def generar_reporte(txt_seteos):
     # Elimino Aux_CartillaBase de memoria
     Aux_ListaCopagos = []
 
-    print("pegamos la lista copagos del plan")
+    #print("pegamos la lista copagos del plan")
 
     ########################################################
     ###### AGREGAMOS DIAGNOSTICOS DE LAS PERSONAS
@@ -553,7 +553,7 @@ def generar_reporte(txt_seteos):
     dfs['Discapacidad'] = dfs['Discapacidad'].replace(['N', 'S'], [0, 1])
 
 
-    print("pegamos los diagnosticos de las personas")
+    #print("pegamos los diagnosticos de las personas")
 
     ########################################################
     ###### CREAMOS TD CONSUMOS Y STOCK JUNTOS
@@ -571,7 +571,7 @@ def generar_reporte(txt_seteos):
 
     dff.to_csv(resultado_exportacion, encoding = 'latin1', index = False, decimal=',')
 
-    print("fin del proceso")
+    #print("fin del proceso")
 
 
 

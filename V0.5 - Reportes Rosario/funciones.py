@@ -8,7 +8,7 @@ from datetime import datetime
 # Funcion para cargar todos los xlsx de una carpeta a un dataframe
 def leer_xlsx(ruta):
     
-    print("Inicio del proceso: " + datetime.now().strftime('%H:%M:%S'))
+    #print("Inicio del proceso: " + datetime.now().strftime('%H:%M:%S'))
     contenido = os.listdir(ruta)
 
     # Dataframe a generar:
@@ -19,10 +19,10 @@ def leer_xlsx(ruta):
         if os.path.isfile(os.path.join(ruta, fichero)) and fichero.endswith('.xlsx'):
             df_temp = pd.read_excel(ruta+fichero)
             df = pd.concat([df, df_temp], axis=0)
-            print("Se cargó el archivo: ", fichero, "a las: " + datetime.now().strftime('%H:%M:%S'))
+            #print("Se cargó el archivo: ", fichero, "a las: " + datetime.now().strftime('%H:%M:%S'))
     
     df_temp = []
-    print("Fin de la carga de archivos")
+    #print("Fin de la carga de archivos")
     return df
 
 
