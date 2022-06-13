@@ -47,18 +47,36 @@ def generador_zona(ruta_seteo):
     proceso.apertura_via_medicamentos(dfc)
     dfc = proceso.apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medicamentos)
 
+    # Aperturas propias del pmo
+    dfc = proceso.apertura_tipo_internacion_pmo(dfc, ruta_int)
+    proceso.apertura_total_pmo(dfc)
+    proceso.apertura_rubros_amb_pmo(dfc)
+    proceso.apertura_origen_medicamentos_pmo(dfc)
+    proceso.apertura_via_medicamentos_pmo(dfc)
+
+
+    print("se generaron todas las columnas de consumos e inicia proceso de armado de tds")
+
     # Segmentacion y metricas para td consumo:
     segmentacion = (['Periodo_Prest', 'Persona'])
-    metricas = ({'Consumo':[np.sum], 'Prestacion':pd.Series.nunique,'Cantidad':[np.sum]})
+    # metricas = ({'Consumo':[np.sum], 'Prestacion':pd.Series.nunique,'Cantidad':[np.sum]})
+    metricas = ({'Consumo':[np.sum], 'Cantidad':[np.sum]}) # Quite la prestacion    
+
+
 
     # Armado de tds consolidadas de consumos:
     td1 = pd.pivot_table(dfc, index = segmentacion, aggfunc = metricas, fill_value = 0)
 
     # Nombres de columnas:
+    #col_td1 = [
+    #    "Cantidad Total",
+    #    "Consumo Total",
+    #    "Prest. Dist. Total"  ]
+
     col_td1 = [
         "Cantidad Total",
-        "Consumo Total",
-        "Prest. Dist. Total"  ]
+        "Consumo Total" ]
+
 
     # Renombro las columnas:
     td1.columns = col_td1
@@ -68,12 +86,24 @@ def generador_zona(ruta_seteo):
     td4 = funciones.td_consumo(df = dfc, columna = "Medicamentos por Origen", segmentacion = segmentacion, metricas = metricas)
     td5= funciones.td_consumo(df = dfc, columna = "Medicamentos por Via", segmentacion = segmentacion, metricas = metricas)
     td6 = funciones.td_consumo(df = dfc, columna = "Medicamentos por Cobertura", segmentacion = segmentacion, metricas = metricas)
+    print("comienzo armado td internaciones")
     td7 = funciones.td_consumo(df = dfc, columna = "Tipo Int. ID", segmentacion = segmentacion, metricas = metricas)
+    print("fin armado td internaciones")
     td8 = funciones.td_consumo(df = dfc, columna = "Marca PMO", segmentacion = segmentacion, metricas = metricas)
+
+    # Tds propias de PMO:
+    td9 = funciones.td_consumo(df = dfc, columna = "Amb por Rubros PMO", segmentacion = segmentacion, metricas = metricas)
+    td10 = funciones.td_consumo(df = dfc, columna = "Medicamentos por Origen PMO", segmentacion = segmentacion, metricas = metricas)
+    td11 = funciones.td_consumo(df = dfc, columna = "Medicamentos por Via PMO", segmentacion = segmentacion, metricas = metricas)
+    print("comienzo armado td internaciones pmo")
+    td12 = funciones.td_consumo(df = dfc, columna = "Tipo Int. ID PMO", segmentacion = segmentacion, metricas = metricas)
+    print("fin armado td internaciones pmo")
+    td13 = funciones.td_consumo(df = dfc, columna = "Apertura Total PMO", segmentacion = segmentacion, metricas = metricas)
+
 
 
     # Agrupamos las tablas de consumos:
-    tdt = pd.concat([td1, td2, td3, td4, td5, td6, td7, td8], axis=1)
+    tdt = pd.concat([td1, td2, td3, td4, td5, td6, td7, td8, td9, td10, td11, td12, td13], axis=1)
     tdt = tdt.reset_index()
 
 

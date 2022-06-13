@@ -59,6 +59,40 @@ def apertura_tipo_internacion(dfc, ruta_int):
     return dfc
 
 
+def apertura_tipo_internacion_pmo(dfc, ruta_int):
+    
+    ########################################################
+    ###### AGREGAMOS MARCA TIPO INTERNACION _ PMO
+    ########################################################
+
+    # CREAMOS LA COLUMNA: "Tipo Int. ID"
+    # Levanto las internaciones históricas para cruzar:
+    dfint = pd.read_excel(ruta_int) # no es necesario si antes se genero
+    
+    ## Agregamos info a dfc ---- NO SE REALIZA CUANDO YA REALIZAMOS LA COLUMNA PARA EL TOTAL
+    #dfc = pd.merge( left = dfc, right = dfint[['Paciente ID','Orden Int. ID','Tipo Int. ID']], 
+    #            right_on=['Paciente ID','Orden Int. ID'], 
+    #            left_on=['Persona','Orden Relacionada ID'], how = "left")
+    
+    # Libero memoria:
+    dfint = []  # no es necesario si antes se genero
+
+    ## Reemplazamos los falta dato por "otras Int"
+    #dfc['Tipo Int. ID'] = dfc['Tipo Int. ID'].replace(np.nan,"Otras Int")
+
+
+
+    # Armado de la columna calculada:
+    condiciones_dfint = [
+        (dfc['Origen Prestacion ID'] == 'I') & (dfc['Marca PMO'] == 'PMO')]
+    # Lista de resultados en función de las selecciones
+    valores_dfint = [dfc['Tipo Int. ID']]   
+    # Generación de la columna calculada
+    dfc['Tipo Int. ID PMO'] = np.select(condiciones_dfint, valores_dfint, default = 'No Considerar')
+
+    return dfc
+
+
 def apertura_total(dfc):
 
     ########################################################
@@ -77,6 +111,28 @@ def apertura_total(dfc):
 
     # Generación de la columna calculada
     dfc['Apertura Total'] = np.select(condiciones2, valores_condic2, default = 'Ambulatorio sin A,C,Med')
+
+
+def apertura_total_pmo(dfc):
+
+    ########################################################
+    ###### CREAMOS LA COLUMNA APERTURA TOTAL SOLAMENTE DE PRESTACIONES MARCADAS PMO
+    ########################################################
+    
+    condiciones2 = [
+        (dfc['Origen Facturacion ID'] == 'A') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Facturacion ID'] == 'C') & (dfc['Marca PMO'] == 'PMO') ,
+        (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO') ,
+        (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO') ,
+        (dfc['Origen Prestacion ID'] == 'I') & (dfc['Marca PMO'] == 'PMO')]
+
+    # Lista de resultados en función de las selecciones
+    valores_condic2 = ['Amb_sin_med_pmo', 'Amb_sin_med_pmo', 'MEd_pmo', 'MEd_pmo', 'Internacion_sin_med_pmo']     
+
+    # Generación de la columna calculada
+    dfc['Apertura Total PMO'] = np.select(condiciones2, valores_condic2, default = 'Amb_sin_med_pmo')
+
+
 
 def apertura_rubros_amb(dfc):
 
@@ -134,6 +190,64 @@ def apertura_rubros_amb(dfc):
     # Generación de la columna calculada
     dfc['Amb por Rubros'] = np.select(condiciones3, valores_condic3, default = 'No Considerar')
 
+
+def apertura_rubros_amb_pmo(dfc):
+
+    ########################################################
+    ###### CREAMOS LA COLUMNA: APERTURA AMB POR RUBRO PARA PMO
+    ########################################################
+    
+    # Creamos la columna: Amb por Rubros
+    # Apertura para consumo: Agrupador consumos 3
+    condiciones3 = [
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'A') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'I') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'C') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'D') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'E') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'F') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'G') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'N') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'M') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'J') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'R') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'S') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'T') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'U') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'V') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'W') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Rubro Indicadores Consumo ID'] == 'X') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO'),
+
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Nomenclador ID'] == 'NP') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Nomenclador ID'] == 'DI') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Nomenclador ID'] == 'NC') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') & (dfc['Nomenclador ID'] == 'NA') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Origen Prestacion ID'] == 'A') ]
+
+    # Lista de resultados en función de las selecciones
+    valores_condic3 = ['Consulta_pmo', 'Laboratorio_pmo', 'Imagenes_pmo', 'Imagenes_pmo', 'Imagenes_pmo', 
+                    'Imagenes_pmo', 'Imagenes_pmo', 'Fisiokinesio_pmo', 'Salud Mental_pmo', 
+                    'Odontologia_pmo', 'Odontologia_pmo', 'Odontologia_pmo', 'Odontologia_pmo', 
+                    'Odontologia_pmo', 'Odontologia_pmo', 'Odontologia_pmo', 'Odontologia_pmo',
+                    'Amb ME_pmo','Amb ME_pmo','Amb NP_pmo','Amb DI_pmo', 'Amb NC_pmo',
+                    'Amb NA_pmo','Resto Amb_pmo']   
+
+    # Generación de la columna calculada
+    dfc['Amb por Rubros PMO'] = np.select(condiciones3, valores_condic3, default = 'No Considerar')
+
+
 def apertura_origen_medicamentos(dfc):
 
     ############################################################
@@ -155,6 +269,29 @@ def apertura_origen_medicamentos(dfc):
     valores_condic4 = ['Med. Int', 'Med. Int', 'Med. Amb', 'Med. Amb']     
     # Generación de la columna calculada
     dfc['Medicamentos por Origen'] = np.select(condiciones4, valores_condic4, default = 'No Considerar')
+
+
+def apertura_origen_medicamentos_pmo(dfc):
+
+    ############################################################
+    ###### AGREGAMOS COLUMNA MEDICAMENTOS POR ORIGEN PRESTACION DE PRESTACIONES MARCADAS COMO PMO
+    ############################################################
+
+    # Apertura para consumo: Medicamentos por Origen
+    condiciones4 = [
+        
+        # Condiciones para marcar medicamentos en internacion:
+        (dfc['Origen Prestacion ID'] == 'I') & (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Prestacion ID'] == 'I') & (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO'),
+        
+        # Condiciones para marcar medicamentos en amb -> no se filtra origen (por defecto mandar a AMB)
+        (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO') ]
+
+    # Lista de resultados en función de las selecciones
+    valores_condic4 = ['Med. Int_pmo', 'Med. Int_pmo', 'Med. Amb_pmo', 'Med. Amb_pmo']     
+    # Generación de la columna calculada
+    dfc['Medicamentos por Origen PMO'] = np.select(condiciones4, valores_condic4, default = 'No Considerar')
 
 def apertura_via_medicamentos(dfc):
 
@@ -180,6 +317,34 @@ def apertura_via_medicamentos(dfc):
 
     # Generación de la columna calculada
     dfc['Medicamentos por Via'] = np.select(condiciones5, valores_condic5, default = 'No Considerar')
+
+
+def apertura_via_medicamentos_pmo(dfc):
+
+    ########################################################
+    ###### AGREGAMOS MARCA MEDICAMENTOS POR VIA DE PRESTACIONES MARCADAS COMO PMO
+    ########################################################
+
+    # Apertura para consumo: Medicamentos por via
+    condiciones5 = [
+        
+        # Condiciones para marcar medicamentos en internacion:
+        (dfc['Provision Acreedor ID'] == 6) & (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Provision Acreedor ID'] == 6) & (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO'),
+
+        (dfc['Provision Acreedor ID'] == 66) & (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Provision Acreedor ID'] == 66) & (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO'),
+        
+        (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO')]
+
+    # Lista de resultados en función de las selecciones
+    valores_condic5 = ['Farmacia_pmo', 'Farmacia_pmo', 'Provision_pmo', 'Provision_pmo', 'Otras vias_pmo', 'Otras vias_pmo']     
+
+    # Generación de la columna calculada
+    dfc['Medicamentos por Via PMO'] = np.select(condiciones5, valores_condic5, default = 'No Considerar')
+
+
 
 def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medicamentos):
     ########################################################
