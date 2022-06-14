@@ -124,13 +124,15 @@ def apertura_total_pmo(dfc):
         (dfc['Origen Facturacion ID'] == 'C') & (dfc['Marca PMO'] == 'PMO') ,
         (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO') ,
         (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO') ,
-        (dfc['Origen Prestacion ID'] == 'I') & (dfc['Marca PMO'] == 'PMO')]
+        (dfc['Origen Prestacion ID'] == 'I') & (dfc['Marca PMO'] == 'PMO'),
+        # COLUMNA SOLAMENTE VALIDA PARA CASOS DE PMO (NO TENER EN CUENTA EN CLASIFICACIONES DE TOTALES)
+        (dfc['Marca PMO'] == 'PMO')]
 
     # Lista de resultados en función de las selecciones
-    valores_condic2 = ['Amb_sin_med_pmo', 'Amb_sin_med_pmo', 'MEd_pmo', 'MEd_pmo', 'Internacion_sin_med_pmo']     
+    valores_condic2 = ['Amb_sin_med_pmo', 'Amb_sin_med_pmo', 'MEd_pmo', 'MEd_pmo', 'Internacion_sin_med_pmo','Amb_sin_med_pmo']     
 
     # Generación de la columna calculada
-    dfc['Apertura Total PMO'] = np.select(condiciones2, valores_condic2, default = 'Amb_sin_med_pmo')
+    dfc['Apertura Total PMO'] = np.select(condiciones2, valores_condic2, default = 'No Considerar')
 
 
 
@@ -292,6 +294,7 @@ def apertura_origen_medicamentos_pmo(dfc):
     valores_condic4 = ['Med. Int_pmo', 'Med. Int_pmo', 'Med. Amb_pmo', 'Med. Amb_pmo']     
     # Generación de la columna calculada
     dfc['Medicamentos por Origen PMO'] = np.select(condiciones4, valores_condic4, default = 'No Considerar')
+
 
 def apertura_via_medicamentos(dfc):
 
