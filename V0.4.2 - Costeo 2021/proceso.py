@@ -86,7 +86,7 @@ def apertura_tipo_internacion_pmo(dfc, ruta_int):
     condiciones_dfint = [
         (dfc['Origen Prestacion ID'] == 'I') & (dfc['Marca PMO'] == 'PMO')]
     # Lista de resultados en función de las selecciones
-    valores_dfint = [dfc['Tipo Int. ID']]   
+    valores_dfint = [dfc['Tipo Int. ID']+"_pmo"]   
     # Generación de la columna calculada
     dfc['Tipo Int. ID PMO'] = np.select(condiciones_dfint, valores_dfint, default = 'No Considerar')
 

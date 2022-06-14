@@ -114,6 +114,7 @@ def generador_zona(ruta_seteo):
     # Cargamos el stock y cambiamos el nombre de las columnas:
     dfs = funciones.leer_xlsx(ruta = ruta_stock)
     funciones.renombrar_columnas(dfs)
+    dfs["Stock"] = 1 # modificamos la cantidad de stock a "1" en cada persona.
 
     # Agregamos aperturas al stock:
     dfs = proceso.marca_rango_edad(dfs, ruta_aux)
