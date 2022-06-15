@@ -1,5 +1,6 @@
 
 ### Defininicion de funciones a usar en los diferentes scripts
+import decimal
 import pandas as pd
 import numpy as np
 import os
@@ -24,6 +25,32 @@ def leer_xlsx(ruta):
     df_temp = []
     #print("Fin de la carga de archivos")
     return df
+
+
+
+# Funcion para cargar todos los xlsx de una carpeta a un dataframe
+def leer_csv(ruta):
+    
+    #print("Inicio carga: " + datetime.now().strftime('%H:%M:%S'))
+    contenido = os.listdir(ruta)
+
+    # Dataframe a generar:
+    df = pd.DataFrame()
+
+    archivos = []
+    for fichero in contenido:
+        if os.path.isfile(os.path.join(ruta, fichero)) and fichero.endswith('.csv'):
+            df_temp = pd.read_csv(ruta+fichero, decimal=',', encoding='latin-1')
+            df = pd.concat([df, df_temp], axis=0)
+            #print("Se cargó el archivo: ", fichero, "a las: " + datetime.now().strftime('%H:%M:%S'))
+    
+    df_temp = []
+    #print("Fin de la carga de archivos")
+    return df
+
+
+
+
 
 
 # Renombrar columnas de un df:
