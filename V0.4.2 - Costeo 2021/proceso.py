@@ -100,14 +100,14 @@ def apertura_total(dfc):
     ########################################################
     
     condiciones2 = [
-        (dfc['Origen Facturacion ID'] == 'A') ,
-        (dfc['Origen Facturacion ID'] == 'C') ,
         (dfc['Nomenclador ID'] == 'ME') ,
         (dfc['Nomenclador ID'] == 'M1') ,
+        (dfc['Origen Facturacion ID'] == 'A') ,
+        (dfc['Origen Facturacion ID'] == 'C') ,
         (dfc['Origen Prestacion ID'] == 'I')]
 
     # Lista de resultados en función de las selecciones
-    valores_condic2 = ['Naj', 'NC', 'MEd', 'MEd', 'Internacion sin A,C,Med']     
+    valores_condic2 = ['MEd', 'MEd', 'Naj', 'NC', 'Internacion sin A,C,Med']     
 
     # Generación de la columna calculada
     dfc['Apertura Total'] = np.select(condiciones2, valores_condic2, default = 'Ambulatorio sin A,C,Med')
@@ -120,16 +120,16 @@ def apertura_total_pmo(dfc):
     ########################################################
     
     condiciones2 = [
-        (dfc['Origen Facturacion ID'] == 'A') & (dfc['Marca PMO'] == 'PMO'),
-        (dfc['Origen Facturacion ID'] == 'C') & (dfc['Marca PMO'] == 'PMO') ,
         (dfc['Nomenclador ID'] == 'ME') & (dfc['Marca PMO'] == 'PMO') ,
         (dfc['Nomenclador ID'] == 'M1') & (dfc['Marca PMO'] == 'PMO') ,
+        (dfc['Origen Facturacion ID'] == 'A') & (dfc['Marca PMO'] == 'PMO'),
+        (dfc['Origen Facturacion ID'] == 'C') & (dfc['Marca PMO'] == 'PMO') ,
         (dfc['Origen Prestacion ID'] == 'I') & (dfc['Marca PMO'] == 'PMO'),
         # COLUMNA SOLAMENTE VALIDA PARA CASOS DE PMO (NO TENER EN CUENTA EN CLASIFICACIONES DE TOTALES)
         (dfc['Marca PMO'] == 'PMO')]
 
     # Lista de resultados en función de las selecciones
-    valores_condic2 = ['Amb_sin_med_pmo', 'Amb_sin_med_pmo', 'MEd_pmo', 'MEd_pmo', 'Internacion_sin_med_pmo','Amb_sin_med_pmo']     
+    valores_condic2 = ['MEd_pmo', 'MEd_pmo', 'Naj_pmo', 'NC_total_pmo', 'Internacion_sin_med_pmo','Amb_sin_med_pmo']
 
     # Generación de la columna calculada
     dfc['Apertura Total PMO'] = np.select(condiciones2, valores_condic2, default = 'No Considerar')
@@ -382,7 +382,7 @@ def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medi
     dfmed2 = pd.read_excel(cobertura_medicamentos)
 
     # Cruzamos con el dfc:
-    dfc = pd.merge( left = dfc, right = dfmed2[["Plan","Cobertura_med_id"]], 
+    dfc = pd.merge( left = dfc, right = dfmed2[["Plan","Cobertura_med_id", "Cobertura_desc"]], 
                 left_on='Plan', right_on='Plan', how = "left")
 
     # Libero memoria:
@@ -478,7 +478,7 @@ def marca_rango_edad(dfs, ruta_aux):
     # Levanto la auxiliar:
     Aux_RangoEdad = pd.read_excel(ruta_aux + "Aux_RangoEdad.xlsx")
     # Pego la informacion al df stock:
-    dfs = pd.merge(left = dfs, right = Aux_RangoEdad[["Edad","Rango_Edad"]], left_on='Edad', right_on='Edad', how = "left")
+    dfs = pd.merge(left = dfs, right = Aux_RangoEdad[["Edad","Rango_Edad","Rango_Edad id"]], left_on='Edad', right_on='Edad', how = "left")
     # Elimino la columna adicional -- no hay
 
     # Elimino Aux_RangoEdad de memoria
@@ -514,7 +514,7 @@ def marca_cobertura_med(dfs, ruta_aux):
     # Levanto la auxiliar:
     Aux_CobertMedicamentosPlan = pd.read_excel(ruta_aux+"Aux_CobertMedicamentosPlan.xlsx")
     # Pego la informacion al df stock:
-    dfs = pd.merge(left = dfs, right = Aux_CobertMedicamentosPlan[["Plan","Cobertura_med_id"]], left_on='Plan', right_on='Plan', how = "left")
+    dfs = pd.merge(left = dfs, right = Aux_CobertMedicamentosPlan[["Plan","Cobertura_med_id", "Cobertura_desc"]], left_on='Plan', right_on='Plan', how = "left")
     # Elimino la columna adicional -- no hay
 
     # Elimino Aux_CartillaBase de memoria

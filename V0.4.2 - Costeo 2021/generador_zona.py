@@ -269,8 +269,8 @@ def generador_zona_df(ruta_seteo):
     # Atributos para generar la td
     Atributos = [   "Discapacidad", "Posicion Asociado ID", "Segmento", "Plan",
                     "Plan Agrupado", "Tipo de Venta DESC", "Diabetes", "Hepatitis",
-                    "PMI", "Cronico", "Oncologico", "Rango_Edad", "Modelo_Cartilla",
-                    "Cobertura_med_id", "Lista_PrecioDesc", "GC", "Rango_Cons",
+                    "PMI", "Cronico", "Oncologico", "Rango_Edad", "Rango_Edad id", "Modelo_Cartilla",
+                    "Cobertura_med_id","Cobertura_desc", "Lista_PrecioDesc", "GC", "Rango_Cons",
                     "algun_diag", "Marca_Diagnostico", "Marca Hijo" ]
 
 
