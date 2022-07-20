@@ -346,7 +346,6 @@ def apertura_via_medicamentos_pmo(dfc):
     dfc['Medicamentos por Via PMO'] = np.select(condiciones5, valores_condic5, default = 'No Considerar')
 
 
-
 def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medicamentos):
     ########################################################
     ###### AGREGAMOS COLUMNA MEDICAMENTOS POR COBERTURA
