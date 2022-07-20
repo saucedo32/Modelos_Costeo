@@ -29,7 +29,6 @@ def apertura_pmo(dfc, ruta_aux):
     return dfc
 
 
-
 def apertura_tipo_internacion(dfc, ruta_int):
     
     ########################################################
@@ -133,7 +132,6 @@ def apertura_total_pmo(dfc):
 
     # Generación de la columna calculada
     dfc['Apertura Total PMO'] = np.select(condiciones2, valores_condic2, default = 'No Considerar')
-
 
 
 def apertura_rubros_amb(dfc):
@@ -452,7 +450,7 @@ def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medi
         dfc.Tipo_med.isnull() == 0,
         dfc.Marca_Cob_Base != 'No Cob. Base',
         dfc.Marca_Cobertura_100 == "Cobertura 100%",
-        dfc["Tipo Orden ID"] == 4,
+        (dfc["Tipo Orden ID"] == 4) & (dfc['Nomenclador ID'] == 'ME') & (dfc['Nomenclador ID'] == 'M1'),
         dfc["Nomenclador ID"] == 'ME',
         dfc["Nomenclador ID"] == 'M1']
         
