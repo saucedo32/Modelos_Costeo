@@ -354,6 +354,7 @@ def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medi
 
     dfmed = pd.read_excel(medicamentos_especiales)
 
+    print("inicia la apertura medicamentos por cobertura")
 
     # Cruzamos con el dfc:
     dfc = pd.merge( left = dfc, right = dfmed[["Prestacion","Tipo_med"]], 
@@ -361,14 +362,20 @@ def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medi
 
     # Libero memoria:
     dfmed = []
-
+    print(dfc.Consumo.dtype)
+    print("división de valores iniciando")
 
     # Cálculos auxiliares para definir % cobertura:
     # Creo el cálculo auxiliar con *10 para quedarnos con la decena de la cobertura
     dfc['Cob_prec_sug'] = (dfc.Consumo / dfc.Precio_sug)*10
 
+    print("división de valores finalizada")
+
     # Reemplazo valores +inf y -inf por 0
     dfc['Cob_prec_sug'] = dfc['Cob_prec_sug'].replace([np.inf, -np.inf], 0)
+
+
+    print("redondear")
 
     # Redondeo a 0 y multiplico por 10 para quedarme con la decena
     dfc['Cob_prec_sug'] = round(dfc['Cob_prec_sug'],0)*10
@@ -378,6 +385,8 @@ def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medi
     # Coberturas
     dfmed2 = pd.read_excel(cobertura_medicamentos)
 
+    print("realizamos el cruce")
+    
     # Cruzamos con el dfc:
     dfc = pd.merge( left = dfc, right = dfmed2[["Plan","Cobertura_med_id", "Cobertura_desc"]], 
                 left_on='Plan', right_on='Plan', how = "left")
