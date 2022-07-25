@@ -323,7 +323,8 @@ def generador_zona_df_csv(ruta_seteo):
     #dfc = funciones.leer_xlsx(ruta_consumo)
     #funciones.renombrar_columnas(dfc)
 
-    dfc = pd.read_csv(ruta_consumo, sep=';', header= None)
+    # dfc = pd.read_csv(ruta_consumo, sep=';', header= None)
+    dfc = funciones.leer_csv_2(ruta_consumo)
     dfc.columns = ["Periodo ID","Periodo Prestacion ID","Persona ID","Persona Fecha Nacimiento","Edad Orden ID","Sexo ID","Discapacitado ID",
     "Posicion Asociado ID","Zona de Promocion ID","Localidad Asociado ID","Provincia Asociado ID","Plan Sin Segmento ID","Origen Prestacion ID",
     "Origen Facturacion ID","Prestacion ID","Rubro Indicadores Consumo ID","Prestacion Acreedor ID","Nomenclador ID","Nomenclador DESC",
@@ -425,7 +426,8 @@ def generador_zona_df_csv(ruta_seteo):
 
 
     # leer csv separado con ; con pandas
-    dfs = pd.read_csv(ruta_stock, sep=';', header= None)
+    #dfs = pd.read_csv(ruta_stock, sep=';', header= None)
+    dfs = funciones.leer_csv_2(ruta_stock)
     dfs.columns = ["Periodo ID","Persona ID","Persona Fecha Nacimiento","Parentesco IdParentesco","Edad Periodo ID","Sexo ID","Discapacitado ID","Localidad Asociado ID",
     "Provincia Asociado ID","Posicion Asociado ID","Zona de Promocion ID","Segmento Agrupado ID","Segmento Agrupado DESC","Plan Sin Segmento ID",
     "Plan Agrupado Sin Segmento DESC","Tipo de Venta DESC","Tipo de Venta ID","Subtipo de Venta DESC","Subtipo de Venta ID","Marca Persona con Diabetes DESC",

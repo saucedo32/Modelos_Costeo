@@ -28,7 +28,7 @@ def leer_xlsx(ruta):
 
 
 
-# Funcion para cargar todos los xlsx de una carpeta a un dataframe
+# Funcion para cargar todos los csv de una carpeta a un dataframe
 def leer_csv(ruta):
     
     #print("Inicio carga: " + datetime.now().strftime('%H:%M:%S'))
@@ -49,6 +49,26 @@ def leer_csv(ruta):
     return df
 
 
+
+# Funcion para cargar todos los csv de una carpeta a un dataframe
+def leer_csv_2(ruta):
+    
+    #print("Inicio carga: " + datetime.now().strftime('%H:%M:%S'))
+    contenido = os.listdir(ruta)
+
+    # Dataframe a generar:
+    df = pd.DataFrame()
+
+    archivos = []
+    for fichero in contenido:
+        if os.path.isfile(os.path.join(ruta, fichero)) and fichero.endswith('.csv'):
+            df_temp = pd.read_csv(ruta+fichero, sep=';', header= None)
+            df = pd.concat([df, df_temp], axis=0)
+            #print("Se cargó el archivo: ", fichero, "a las: " + datetime.now().strftime('%H:%M:%S'))
+    
+    df_temp = []
+    #print("Fin de la carga de archivos")
+    return df
 
 
 
