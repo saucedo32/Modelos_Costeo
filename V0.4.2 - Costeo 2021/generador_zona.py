@@ -432,7 +432,7 @@ def generador_zona_df_csv(ruta_seteo):
     "Provincia Asociado ID","Posicion Asociado ID","Zona de Promocion ID","Segmento Agrupado ID","Segmento Agrupado DESC","Plan Sin Segmento ID",
     "Plan Agrupado Sin Segmento DESC","Tipo de Venta DESC","Tipo de Venta ID","Subtipo de Venta DESC","Subtipo de Venta ID","Marca Persona con Diabetes DESC",
     "Marca Persona con Hepatitis DESC","Marca Persona con PMI DESC","Marca Persona con Tratamiento Cronico DESC","Marca Persona con Tratamiento Oncológico DESC",
-    "Stock Asociados Salud","ACE Stock Asociados Salud"]
+    "Stock Asociados Salud","ACE Stock Asociados Salud","fd"]
     funciones.renombrar_columnas(dfs)
     dfs["Stock"] = 1 # modificamos la cantidad de stock a "1" en cada persona.
 
