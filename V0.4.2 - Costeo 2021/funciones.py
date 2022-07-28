@@ -62,7 +62,7 @@ def leer_csv_2(ruta):
     archivos = []
     for fichero in contenido:
         if os.path.isfile(os.path.join(ruta, fichero)) and fichero.endswith('.CSV'):
-            df_temp = pd.read_csv(ruta+fichero, sep=';', header= None, encoding='latin1', decimal=',')
+            df_temp = pd.read_csv(ruta+fichero, header= None, encoding="latin-1",sep=";", decimal=",")
             df = pd.concat([df, df_temp], axis=0)
             #print("Se cargó el archivo: ", fichero, "a las: " + datetime.now().strftime('%H:%M:%S'))
     

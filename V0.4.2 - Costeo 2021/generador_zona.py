@@ -325,12 +325,14 @@ def generador_zona_df_csv(ruta_seteo):
 
     # dfc = pd.read_csv(ruta_consumo, sep=';', header= None)
     dfc = funciones.leer_csv_2(ruta_consumo)
-    dfc.columns = ["Periodo ID","Periodo Prestacion ID","Persona ID","Persona Fecha Nacimiento","Edad Orden ID","Sexo ID","Discapacitado ID",
-    "Posicion Asociado ID","Zona de Promocion ID","Localidad Asociado ID","Provincia Asociado ID","Plan Sin Segmento ID","Origen Prestacion ID",
-    "Origen Facturacion ID","Prestacion ID","Rubro Indicadores Consumo ID","Prestacion Acreedor ID","Nomenclador ID","Nomenclador DESC",
-    "Acreedor ID","Provision Acreedor ID","Posicion Acreedor ID","Subcategoria Acreedor DESC","Tipo Orden ID","Nro Orden ID","Tipo Orden Relacionada ID"
-    ,"Orden Relacionada ID","Porcentaje Cobertura Medicamento ID","Tipo de Venta DESC","Tipo de Venta ID","Subtipo de Venta DESC","Subtipo de Venta ID",
-    "Segmento Agrupado DESC","Cantidad","Consumo","Precio Sugerido Medicamento"]
+    dfc.columns = ["Periodo ID","Persona ID","Persona Fecha Nacimiento","Sexo ID","Discapacitado ID",
+    "Localidad Asociado ID","Provincia Asociado ID","Posicion Asociado ID","Zona de Promocion ID",
+    "Segmento Agrupado DESC","Plan Sin Segmento ID","Tipo de Venta DESC","Tipo de Venta ID","Subtipo de Venta DESC",
+    "Subtipo de Venta ID","Periodo Prestacion ID","Edad Orden ID","Origen Prestacion ID","Origen Facturacion ID",
+    "Prestacion ID","Rubro Indicadores Consumo ID","Prestacion Acreedor ID","Nomenclador ID","Nomenclador DESC","Acreedor ID",
+    "Provision Acreedor ID","Posicion Acreedor ID","Subcategoria Acreedor DESC","Tipo Orden ID","Nro Orden ID",
+    "Tipo Orden Relacionada ID","Orden Relacionada ID","Porcentaje Cobertura Medicamento ID","Cantidad",
+    "Consumo","Precio Sugerido Medicamento"]
     
     print(dfc.Consumo.dtype)
     funciones.renombrar_columnas(dfc)
@@ -432,7 +434,7 @@ def generador_zona_df_csv(ruta_seteo):
     "Provincia Asociado ID","Posicion Asociado ID","Zona de Promocion ID","Segmento Agrupado ID","Segmento Agrupado DESC","Plan Sin Segmento ID",
     "Plan Agrupado Sin Segmento DESC","Tipo de Venta DESC","Tipo de Venta ID","Subtipo de Venta DESC","Subtipo de Venta ID","Marca Persona con Diabetes DESC",
     "Marca Persona con Hepatitis DESC","Marca Persona con PMI DESC","Marca Persona con Tratamiento Cronico DESC","Marca Persona con Tratamiento Oncológico DESC",
-    "Stock Asociados Salud","ACE Stock Asociados Salud","fd"]
+    "Stock Asociados Salud","ACE Stock Asociados Salud"]
     funciones.renombrar_columnas(dfs)
     dfs["Stock"] = 1 # modificamos la cantidad de stock a "1" en cada persona.
 
