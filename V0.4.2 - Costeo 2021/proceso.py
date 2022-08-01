@@ -458,12 +458,13 @@ def apertura_cobertura_medicamentos(dfc, medicamentos_especiales, cobertura_medi
         dfc.Tipo_med.isnull() == 0,
         dfc.Marca_Cob_Base != 'No Cob. Base',
         dfc.Marca_Cobertura_100 == "Cobertura 100%",
-        (dfc["Tipo Orden ID"] == 4) & (dfc['Nomenclador ID'] == 'ME') & (dfc['Nomenclador ID'] == 'M1'),
+        (dfc["Tipo Orden ID"] == 4) & (dfc['Nomenclador ID'] == 'ME'),
+        (dfc["Tipo Orden ID"] == 4) & (dfc['Nomenclador ID'] == 'M1'),        
         dfc["Nomenclador ID"] == 'ME',
         dfc["Nomenclador ID"] == 'M1']
         
     # Lista de resultados en función de las selecciones
-    valores_condic = ["Prest Genéricas", dfc.Tipo_med, dfc.Marca_Cob_Base, dfc.Marca_Cobertura_100, "Form. 4", "Otros", "Otros"]  
+    valores_condic = ["Prest Genéricas", dfc.Tipo_med, dfc.Marca_Cob_Base, dfc.Marca_Cobertura_100, "Form. 4", "Form. 4", "Otros", "Otros"]  
 
     # Generación de la columna calculada
     dfc['Medicamentos por Cobertura'] = np.select(condiciones, valores_condic, default = 'No Considerar')
