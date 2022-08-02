@@ -128,7 +128,7 @@ def apertura_total_pmo(dfc):
         (dfc['Marca PMO'] == 'PMO')]
 
     # Lista de resultados en función de las selecciones
-    valores_condic2 = ['MEd_pmo', 'MEd_pmo', 'Naj_pmo', 'NC_total_pmo', 'Internacion_sin_med_pmo','Amb_sin_med_pmo']
+    valores_condic2 = ['MEd_pmo', 'MEd_pmo', 'Naj_pmo', 'NC_pmo', 'Internacion_sin_med_pmo','Amb_sin_med_pmo']
 
     # Generación de la columna calculada
     dfc['Apertura Total PMO'] = np.select(condiciones2, valores_condic2, default = 'No Considerar')
