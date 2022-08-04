@@ -314,6 +314,7 @@ def generador_zona_df_csv(ruta_seteo):
     cobertura_medicamentos = variables['cobertura_medicamentos']
     #archivo_exportacion = variables['archivo_exportacion']
     resultado_exportacion = variables['resultado_exportacion']
+    ruta_aumentoSSS = variables['ruta_aumentoSSS']
 
 
     #######################################################
@@ -333,6 +334,9 @@ def generador_zona_df_csv(ruta_seteo):
     "Provision Acreedor ID","Posicion Acreedor ID","Subcategoria Acreedor DESC","Tipo Orden ID","Nro Orden ID",
     "Tipo Orden Relacionada ID","Orden Relacionada ID","Porcentaje Cobertura Medicamento ID","Cantidad",
     "Consumo","Precio Sugerido Medicamento"]
+
+
+
     
     print(dfc.Consumo.dtype)
     funciones.renombrar_columnas(dfc)
@@ -362,6 +366,25 @@ def generador_zona_df_csv(ruta_seteo):
     proceso.apertura_rubros_amb_pmo(dfc)
     proceso.apertura_origen_medicamentos_pmo(dfc)
     proceso.apertura_via_medicamentos_pmo(dfc)
+
+
+
+
+
+
+    ### Actualización de importes por inflación SSS ###
+    # leo el archivo de aumento de SSS:
+    dfa = pd.read_excel(ruta_aumentoSSS)
+    # unimos con el consumo para actualizar
+
+    dfc = pd.merge(left = dfc, right = dfa, left_on = "Periodo", right_on = "Periodo", how = "left")
+    dfc.Consumo = dfc.Consumo * dfc.Ajuste_SSS
+    dfa = []
+
+
+
+
+
 
 
     
