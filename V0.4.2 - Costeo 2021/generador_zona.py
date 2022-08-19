@@ -384,9 +384,6 @@ def generador_zona_df_csv(ruta_seteo):
 
 
 
-
-
-
     
     # Segmentacion y metricas para td consumo:
     segmentacion = (['Periodo_Prest', 'Persona'])
