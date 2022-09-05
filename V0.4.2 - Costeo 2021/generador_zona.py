@@ -486,7 +486,7 @@ def generador_zona_df_csv(ruta_seteo):
 
 
     # Atributos para generar la td
-    Atributos = [   "Discapacidad", "Posicion Asociado ID", "Provincia Asociado ID","Segmento", "Plan",
+    Atributos = [   "Persona", "Periodo","Discapacidad", "Posicion Asociado ID", "Provincia Asociado ID","Segmento", "Plan",
                     "Plan Agrupado", "Tipo de Venta DESC", "Diabetes", "Hepatitis",
                     "PMI", "Cronico", "Oncologico", "Rango_Edad", "Rango_Edad id", "Modelo_Cartilla",
                     "Cobertura_med_id","Cobertura_desc", "Lista_PrecioDesc", "GC", "Rango_Cons",
